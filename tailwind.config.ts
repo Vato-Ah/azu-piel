@@ -9,8 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        azu: {
+          red: "#E03131",
+          reddark: "#B02525",
+          leather: "#7A4A2B",
+          leatherdark: "#4E3320",
+          cream: "#FAF3E7",
+        },
       },
     },
   },
