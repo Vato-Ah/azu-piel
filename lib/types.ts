@@ -1,3 +1,4 @@
+// aqui se crean las categorias y la interfaz de los productos
 export type ProductCategory =
   | "carteras"
   | "mochilas"

@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductList from "@/components/ProductList";
 import { sampleProducts } from "@/lib/data";
 
 export const metadata = {
@@ -13,11 +13,7 @@ export default function ProductosPage() {
         <p className="text-stone-500 mb-8">
           Piezas artesanales de cuero hechas en Cotacachi - Ecuador.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sampleProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductList products={sampleProducts} />
       </div>
     </main>
   );
