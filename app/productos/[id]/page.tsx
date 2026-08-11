@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { sampleProducts } from "@/lib/data";
+import { getProductById } from "@/lib/products";
 import { getExchangeRates } from "@/lib/exchange";
 
 interface Props {
@@ -9,13 +9,14 @@ interface Props {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  const product = sampleProducts.find((p) => p.id === params.id);
+  const [product, rates] = await Promise.all([
+    getProductById(params.id),
+    getExchangeRates(),
+  ]);
 
   if (!product) {
     notFound();
   }
-
-  const rates = await getExchangeRates();
 
   return (
     <main className="bg-azu-cream min-h-screen">

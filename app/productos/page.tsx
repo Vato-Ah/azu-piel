@@ -1,11 +1,16 @@
 import ProductList from "@/components/ProductList";
-import { sampleProducts } from "@/lib/data";
+import { getProducts } from "@/lib/products";
 
 export const metadata = {
   title: "Catálogo | Azu-Piel",
 };
 
-export default function ProductosPage() {
+// El catálogo consulta la base de datos en cada visita, sin caché
+export const dynamic = "force-dynamic";
+
+export default async function ProductosPage() {
+  const products = await getProducts();
+
   return (
     <main className="bg-azu-cream min-h-screen">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -13,7 +18,7 @@ export default function ProductosPage() {
         <p className="text-stone-500 mb-8">
           Piezas artesanales de cuero hechas en Cotacachi - Ecuador.
         </p>
-        <ProductList products={sampleProducts} />
+        <ProductList products={products} />
       </div>
     </main>
   );
