@@ -2,17 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { sampleProducts } from "@/lib/data";
+import { getExchangeRates } from "@/lib/exchange";
 
 interface Props {
   params: { id: string };
 }
 
-export default function ProductDetailPage({ params }: Props) {
+export default async function ProductDetailPage({ params }: Props) {
   const product = sampleProducts.find((p) => p.id === params.id);
 
   if (!product) {
     notFound();
   }
+
+  const rates = await getExchangeRates();
 
   return (
     <main className="bg-azu-cream min-h-screen">
@@ -45,6 +48,27 @@ export default function ProductDetailPage({ params }: Props) {
             <p className="text-3xl font-bold text-azu-red mb-6">
               ${product.price}
             </p>
+
+            {rates ? (
+              <div className="rounded-md bg-azu-cream border border-stone-200 p-4 mb-6">
+                <p className="text-sm font-semibold text-stone-700 mb-2">
+                  Referencia internacional
+                </p>
+                <div className="flex gap-4 text-sm text-stone-600">
+                  <span>EUR {(product.price * rates.rates.EUR).toFixed(2)}</span>
+                  <span>GBP {(product.price * rates.rates.GBP).toFixed(2)}</span>
+                  <span>COP {(product.price * rates.rates.COP).toFixed(0)}</span>
+                </div>
+                <p className="text-xs text-stone-400 mt-2">
+                  Actualizado: {rates.time_last_update_utc}
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-stone-400 mb-6">
+                No se pudieron cargar las tasas de cambio de referencia.
+              </p>
+            )}
+
             <p className="text-sm text-stone-400">
               Hecho a mano en Cotacachi - Ecuador
             </p>
