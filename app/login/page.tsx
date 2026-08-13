@@ -1,4 +1,4 @@
-//por fin borro la pestaña del login donde solo decía que no estaba disponible al fin
+//al fin funciona el login y register
 "use client";
 
 import { useState } from "react";
