@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function Navbar() {
@@ -14,12 +15,14 @@ export default function Navbar() {
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();
 
-    supabase.auth.getSession().then(({ data }) => {
-      setLoggedIn(!!data.session);
-    });
+    supabase.auth.getSession().then(
+      ({ data }: { data: { session: Session | null } }) => {
+        setLoggedIn(!!data.session);
+      }
+    );
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (_event: AuthChangeEvent, session: Session | null) => {
         setLoggedIn(!!session);
       }
     );
