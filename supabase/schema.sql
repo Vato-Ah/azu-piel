@@ -1,5 +1,5 @@
 --Marcelo Navarro
--- AZU-PIEL · Esquema final de la base de datos (Supabase)
+-- AZU-PIEL  Esquema final de la base de datos (Supabase)
 -- Ejecutar en un proyecto vacío para recrear todo el esquema
 
 
